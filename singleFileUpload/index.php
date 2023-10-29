@@ -13,19 +13,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo '</pre>';
 
 
+    $file_name = $_FILES['myFile']['name'];
     $file_type = $_FILES['myFile']['type'];
     $file_size = $_FILES['myFile']['size'];
     $file_tmp = $_FILES['myFile']['tmp_name'];
 
+
+    echo 'File name : ' . $file_name. '<br>';
     echo 'File type : ' . $file_type. '<br>';
     echo 'File size : ' . $file_size. '<br>';
     echo 'File temp name : ' . $file_tmp. '<br>';
 
 
-    move_uploaded_file($file_tmp, 'upload');
+    move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'].'/singleFileUpload/upload/'. $file_name );
+
 }
-
-
 
 
 
