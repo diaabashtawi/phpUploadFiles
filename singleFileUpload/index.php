@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo 'File temp name : ' . $file_tmp. '<br>';
 
 
-    move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'].'/singleFileUpload/upload/'. $file_name );
+    move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'].'/phpUploadFiles/singleFileUpload/upload/'.$file_name );
 
 }
 
