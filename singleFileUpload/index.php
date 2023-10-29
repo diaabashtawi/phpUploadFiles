@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo 'File temp name : ' . $file_tmp. '<br>';
 
 
-    move_uploaded_file($file_tmp,);
+    move_uploaded_file($file_tmp, 'upload');
 }
 
 
