@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Get file extention 'expload' function will convert any string to array 
     $file_extention = explode('.', $file_name);
-    print_r($file_extention);
-    echo '<br>';
+    // print_r($file_extention);
+    // echo '<br>';
     // this line to get the file extention and converted to lower case
     // end function will return the last element in the array as a string  
     $file_extention = strtolower(end($file_extention));
-    echo $file_extention . '<br>';
+    // echo $file_extention . '<br>';
 
     // Check if the file uploaded or NOT
     if ($file_error == 4) {
