@@ -1,7 +1,10 @@
-<?php 
+<?php
 
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // initialize and declare $myFiles variable to grap the files from the input tag in the html form 
+    $myFiles = $_FILES['myFiles'];
     // Setting Errors Array
     $errors = array();
 
@@ -13,10 +16,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         'png'
     );
 
-    $myFiles = $_FILES['myFiles'];
-    echo '<pre>';
-    print_r($myFiles);
-    echo '<pre>';
+    
+    // echo '<pre>';
+    // print_r($myFiles);
+    // echo '<pre>';
 
     // Get info from the html form
     $files_name = $myFiles['name'];
@@ -38,27 +41,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $files_count = count($files_name);
     // echo $files_count;
     // echo '<br>';
-    for ($i=0; $i < $files_count; $i++) {
-        move_uploaded_file($files_temp_name[$i], $_SERVER['DOCUMENT_ROOT'].'/phpUploadFiles/multipleFileUpload/upload/'.$files_name[$i]);
-        // echo $files_name[$i];
-        // echo "<br>";
-        // echo $files_full_path[$i];
-        // echo "<br>";
-        // echo $files_type[$i];
-        // echo "<br>";
-        // echo $files_temp_name[$i];
-        // echo "<br>";
-        // echo $files_size[$i];
-        // echo "<br>";
-        // echo $files_error[$i];
+    for ($i = 0; $i < $files_count; $i++) {
+        // Setting Errors Array
+        $errors = array();
+
+        if($files_size[$i] > 100000){
+            
+            $errors[] = '<div> Too Large File  </div>';
+        }
+
+        if(empty($errors)){
+            // Move all the files if there is no errors 
+            move_uploaded_file($files_temp_name[$i], $_SERVER['DOCUMENT_ROOT'] . '/phpUploadFiles/multipleFileUpload/upload/' . $files_name[$i]);
+            echo '<div style="background-color: #eee; padding: 10px; margin-bottom: 20px;">';
+            echo 'File number ' . ($i+1) . ' Uploaded Successfully ' . ' file name : '. $files_name[$i] .'<br>';
+            echo '</div>';
+        }else{
+            echo '<div style="background-color: #eee; padding: 10px; margin-bottom: 20px;">';
+            echo 'Errors for file number ' . ($i+1) . ' file name : '. $files_name[$i] .'<br>';
+            foreach ($errors as $error){
+                echo $error;
+            }
+            echo '</div>';
+        }
     }
-
-
-    
-
-
-
-
 }
 
 
@@ -68,6 +74,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 <form class="" action="" method="post" enctype="multipart/form-data">
-<input type="file" name="myFiles[]" value="" multiple="multiple">
+    <input type="file" name="myFiles[]" value="" multiple="multiple">
     <input type="submit" value="Upload">
 </form>
